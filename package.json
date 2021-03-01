@@ -1,0 +1,21 @@
+{
+  "name": "nps_api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:librity/nlw_nodejs.git",
+  "author": "Luis Geniole <luis.geniole@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.31"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "ts-node-dev": "^1.1.6",
+    "typescript": "^4.2.2"
+  }
+}
