@@ -1,6 +1,6 @@
 # Net Promoter Score API
 
-Rocket Seat - Next Level Week - NodeJS
+A basic NPS api with NodeJS, Typescript and Typeorm.
 
 ## Docs and Resources
 
