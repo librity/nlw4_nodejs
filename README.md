@@ -9,6 +9,7 @@ Rocket Seat - Next Level Week - NodeJS
 - https://www.typescriptlang.org/docs/
 - https://github.com/wclr/ts-node-dev
 - https://support.insomnia.rest/
-- https://node-postgres.com/
-- https://knexjs.org/
+- https://github.com/mapbox/node-sqlite3
 - https://typeorm.io/#/
+- https://www.beekeeperstudio.io/
+- https://github.com/uuidjs/uuid

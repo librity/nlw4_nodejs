@@ -1,16 +1,17 @@
-import express from "express";
+import "reflect-metadata";
+import express, { json } from "express";
+
+import "./database";
+
+import routes from "./routes";
 
 const app = express();
 
-app.get("/users", (request, response) => {
-  return response.json({ message: "This is a get request." });
-});
+app.use(json());
+app.use(routes);
 
-app.post("/users", (request, response) => {
-  return response.json({ message: "This is a post request." });
-});
+const PORT = 3333;
 
-const port = 3333;
-app.listen(port, () =>
-  console.log(`Server running on port http://localhost:${port}`)
+app.listen(PORT, () =>
+  console.log(`Server running on http://localhost:${PORT}`)
 );
