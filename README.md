@@ -13,3 +13,4 @@ Rocket Seat - Next Level Week - NodeJS
 - https://typeorm.io/#/
 - https://www.beekeeperstudio.io/
 - https://github.com/uuidjs/uuid
+- https://jestjs.io/docs/en/getting-started
