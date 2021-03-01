@@ -1,4 +1,5 @@
 import request from "supertest";
+import { getConnection } from "typeorm";
 
 import setupDatabaseConnection from "../../database";
 import app from "../../app";
@@ -7,6 +8,12 @@ describe("Surveys integration test", () => {
   beforeAll(async () => {
     const connection = await setupDatabaseConnection();
     await connection.runMigrations();
+  });
+
+  afterAll(async () => {
+    const connection = getConnection();
+    await connection.dropDatabase();
+    await connection.close();
   });
 
   it("Should create a new survey", async () => {

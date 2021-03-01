@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 
+import AppError from "../errors/AppError";
+
 import UsersRepository from "../repositories/UsersRepository";
 import SurveysRepository from "../repositories/SurveysRepository";
 import SurveyAnswersRepository from "../repositories/SurveyAnswersRepository";
@@ -17,17 +19,11 @@ export default class SurveyAnswersController {
     );
 
     const userExists = await usersRepository.findOne({ email: user_email });
-    if (!userExists)
-      return response.status(400).json({
-        error: "User not found!",
-      });
+    if (!userExists) throw new AppError("User not found!");
     const user = userExists;
 
     const surveyExists = await surveysRepository.findOne({ id: survey_id });
-    if (!surveyExists)
-      return response.status(400).json({
-        error: "Survey not found!",
-      });
+    if (!surveyExists) throw new AppError("Survey not found!");
     const survey = surveyExists;
 
     const emailData = {
@@ -40,7 +36,7 @@ export default class SurveyAnswersController {
     };
 
     const surveyAnswerExists = await surveyAnswersRepository.findOne({
-      where: [{ user_id: user.id }, { survey_id: survey.id }, { value: null }],
+      where: { user_id: user.id, survey_id: survey.id, value: null },
       relations: ["user", "survey"],
     });
     if (surveyAnswerExists) {
@@ -54,10 +50,9 @@ export default class SurveyAnswersController {
       user_id: user.id,
       survey_id,
     });
-    surveyAnswersRepository.save(emptySurvey);
-    const { id: suveyAnswerId } = emptySurvey;
+    await surveyAnswersRepository.save(emptySurvey);
 
-    emailData.suveyAnswerId = suveyAnswerId;
+    emailData.suveyAnswerId = emptySurvey.id;
     SurveyAnswersMailer.call(emailData);
 
     return response.status(201).json(emptySurvey);
@@ -65,8 +60,19 @@ export default class SurveyAnswersController {
 
   async answer(request: Request, response: Response) {
     const { id, value } = request.params;
-    console.log(id);
-    console.log(value);
-    return response.status(201).send();
+
+    const surveyAnswersRepository = getCustomRepository(
+      SurveyAnswersRepository
+    );
+
+    const surveyAnswer = await surveyAnswersRepository.findOne({ id });
+
+    if (!surveyAnswer) throw new AppError("Survey Answer not found!");
+    if (surveyAnswer.value) throw new AppError("Survey already answered!");
+
+    surveyAnswer.value = Number(value);
+    await surveyAnswersRepository.save(surveyAnswer);
+
+    return response.status(201).send(surveyAnswer);
   }
 }

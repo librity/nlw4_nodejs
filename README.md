@@ -11,6 +11,7 @@ App:
 - https://support.insomnia.rest/
 - https://github.com/uuidjs/uuid
 - https://github.com/motdotla/dotenv
+- https://github.com/jquense/yup
 
 Typescript:
 
