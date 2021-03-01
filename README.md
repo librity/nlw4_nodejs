@@ -2,6 +2,26 @@
 
 A basic NPS api with NodeJS, Typescript and Typeorm.
 
+## Endpoints
+
+`UsersController`
+
+- `POST` http://localhost:3333/users
+
+`SurveysController`
+
+- `GET` http://localhost:3333/surveys
+- `POST` http://localhost:3333/surveys
+
+`SurveyAnswersController`
+
+- `POST` http://localhost:3333/survey_answers
+- `GET` http://localhost:3333/survey_answers/:id/answer/:value
+
+`NpsController`
+
+- `GET` http://localhost:3333/nps/:survey_id
+
 ## Docs and Resources
 
 App:
