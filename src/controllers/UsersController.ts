@@ -8,8 +8,8 @@ export default class UsersController {
     const { name, email } = request.body;
     const usersRepository = getCustomRepository(UsersRepository);
 
-    const userAlreadyExists = await usersRepository.findOne({ email });
-    if (userAlreadyExists)
+    const emailTaken = await usersRepository.findOne({ email });
+    if (emailTaken)
       return response.status(400).json({
         error: "Email taken!",
       });
